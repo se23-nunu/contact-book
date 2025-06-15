@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Contact Book</title>
     </head>
     <body onload="fetchContacts()">
 
@@ -17,21 +17,34 @@
                    return response.json();
                })
                .then(function(data){
-                   // displayOutput(data);
-                   console.log(data);
+                   displayOutput(data);
                })
+                 .catch(function(error){
+                     document.getElementById('table).textContent = 'failed to load contact.';
+                         console.error(error);
+                 });
              }
              
              function displayOutput(data){
-                output ="<table>";
-
-                    for(a in data){
-                        output += `
-                        <tr>
-                            <td><img
-                        `
-                    }
-             }
+                let output = "<table boarder='1'><tr><th>Name</th><th>Email</th></tr>";
+                 for(let content of data){
+                     output +=`
+                     <tr>
+                     <td>img src="${contact.photo || ''}" alt="No photo" style=width:40px;heiht:40px;"></td>
+                     <td>${contact.name || ''}</td>
+                     <td>${contact.email || ''}</td>
+                     </tr>
+                     `;
+                 }
+                 output += "<table>";
+                 document.getElementById('table).innerHTML = output;
+                   }
+                document.getElementById('refresh').addEventlistener('click', fetchContact);
+                document.getElementById('addContact').addEventlistener('click', function(){
+                    //Add contact logic here
+                    alert('Add Contact button clicked');
+                });
         </script>
     </body>
 </html>
+                    
