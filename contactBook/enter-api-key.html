@@ -5,36 +5,38 @@
         <meta charset="UTF-8">
         <meta name="Viewpoint" content="width=device-width, initial-scale=1.0">
     </head>
-</html>
+<body>
       <div>Please enter a valid API key.</div>
-      <form>
-        <input type="email" id="apikey" name="apikey"/>
-        <button id="submitApikey">Submit</button>
+      <form id="apikeyForm">
+        <input type="text" id="apikey" name="apikey" required />
+        <button id="submitApikey"type=">Submit">submit</button>
       </form>
 
 
       <script>
         let rootPath = "https://mysite. itvarsity.org/api/ContactBook/";
-        document.getElementById("submitApikey").addEventListener('click', setApikey);
+        document.getElementById("apikeyform").addEventListener('submit', setApikey);
 
         function setApikey(e){
             e.preventDefault();
-
-
-            ampikey = document.getElementById("apikey").value;
-            fetch(reetPath + "controller/api-key/?apikey=" + apikey)
-            return response.text();
-             })                       
+            let apikey = document.getElementById("apikey").value;
+            fetch(rootPath + "controller/api-key/?api-key=/?apikey=" + encodeURTComponent(apikey))
+             .then(function(response) {
+                 return response.text();
+             })
             .then(function (data) {
-
-              if (data=="1") {
-              localstorage.setItem("apikey", apikey);
-              window.open("index.html", "-self");
-             } else{
-              alert(data + "Invalid API key entered!");
-              }
-           })
-            }
-     </script>
-     </body>
-     </html>
+                if (data == "1") {
+                    localStorage.setItem("apikey", apikey);
+                    window.location.href ="index.html";
+                } else {
+                    alert("Invalid API key entered! " + data);
+                }
+            })
+            .catch(function(error) {
+                alert("Error verifying API key.");
+                console.error(erroe);
+            });
+        }
+      </script>
+</body>
+</html>
